@@ -38,5 +38,6 @@ Follow these official Supabase guidelines to avoid deprecated patterns and secur
   - Always use built-in **`Deno.serve(async (req) => ...)`** (never import `serve` from `deno.land/std`).
   - Import dependencies exclusively using **`npm:`** or **`jsr:`** specifiers with explicit versions (`import { createClient } from 'npm:@supabase/supabase-js@2'`).
 
-## 5. On-Demand Deep-Dive References
+## 5. On-Demand Deep-Dive References & Cross-Role Links
 - **RLS Patterns, `security invoker` Functions, Declarative Schemas & Edge Functions Recipes**: [references/rls-postgres-and-edge-functions.md](./references/rls-postgres-and-edge-functions.md)
+- **Self-Hosted Supabase Deployment (`supabase/docker`, Kong, Supavisor, `.env` Key Generation & Reverse Proxy)**: Activate the `supabase-self-hosted` skill in `devops-infra-role` ([`../../devops-infra-role/skills/supabase-self-hosted/SKILL.md`](../../../devops-infra-role/skills/supabase-self-hosted/SKILL.md)).
