@@ -40,12 +40,13 @@ agent-arsenal/
     │       ├── caching-queues-and-events/
     │       ├── observability-and-resilience/
     │       └── architecture-and-domain-design/
-    ├── qa-testing-role/             # Role: QA, Test Automation & Quality (7 skills, 5 references, 2 scripts)
+    ├── qa-testing-role/             # Role: QA, Test Automation & Quality (8 skills, 6 references, 2 scripts)
     │   ├── plugin.json
     │   ├── rules/AGENTS.md
     │   └── skills/
     │       ├── vitest-expert/
     │       ├── playwright-e2e/
+    │       ├── playwright-cli-browser/
     │       ├── unit-testing-expert/
     │       ├── api-and-integration-testing/
     │       ├── performance-and-load-testing/

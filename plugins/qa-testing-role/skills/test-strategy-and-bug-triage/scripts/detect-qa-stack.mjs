@@ -39,8 +39,17 @@ if (fileExists('package.json')) {
     if (has('@playwright/test') || fileExists('playwright.config.ts')) {
       runners.push('playwright');
       nonInteractiveCommands.push('npx playwright test');
-      recommendedSkills.push('playwright-e2e');
-      recommendedReferences.push('playwright-e2e/references/auth-fixtures-and-ci-sharding.md');
+      recommendedSkills.push('playwright-e2e', 'playwright-cli-browser');
+      recommendedReferences.push(
+        'playwright-e2e/references/auth-fixtures-and-ci-sharding.md',
+        'playwright-cli-browser/references/sessions-devtools-and-mocking.md'
+      );
+    }
+    if (has('@playwright/cli') || fileExists('.playwright-cli') || fileExists('.playwright')) {
+      runners.push('playwright-cli');
+      nonInteractiveCommands.push('playwright-cli snapshot');
+      recommendedSkills.push('playwright-cli-browser');
+      recommendedReferences.push('playwright-cli-browser/references/sessions-devtools-and-mocking.md');
     }
     if (has('jest')) {
       runners.push('jest');
