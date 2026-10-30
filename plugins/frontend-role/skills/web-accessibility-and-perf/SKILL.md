@@ -1,7 +1,7 @@
 ---
 name: web-accessibility-and-perf
 description: >-
-  Use this skill when auditing or optimizing web accessibility (WCAG 2.1 AA, ARIA patterns, keyboard navigation, focus management) and Core Web Vitals performance (LCP, INP, CLS, list/table virtualization, bundle size).
+  Use this skill when auditing or optimizing web accessibility (WCAG 2.1 AA, ARIA patterns, keyboard navigation, focus management), Core Web Vitals performance (LCP, INP, CLS, list/table virtualization, bundle size), or running automated frontend stack and code audits.
 ---
 
 # Web Accessibility (a11y) & Performance Skill
@@ -25,3 +25,11 @@ Follow these guidelines to ensure every UI meets **WCAG 2.1 Level AA** accessibi
   - Reserve space for dynamic banners, toasts, or async slots.
 - **INP (Interaction to Next Paint < 200ms)**:
   - Keep event handlers fast; yield or defer non-urgent state updates (`startTransition`, `requestIdleCallback`, or web workers) and virtualize large lists/tables (`> 100` complex rows) using `@tanstack/react-virtual` (see [tanstack-table-and-virtualization.md](../data-fetching-and-state/references/tanstack-table-and-virtualization.md)).
+
+## 3. Executable Helper Scripts (`scripts/`)
+- **Detect Frontend Stack & Recommended Skills**:
+  [scripts/detect-frontend-stack.mjs](./scripts/detect-frontend-stack.mjs)
+  Run: `node <skill_dir>/scripts/detect-frontend-stack.mjs <project_root>`
+- **Static Accessibility & Anti-Pattern Audit**:
+  [scripts/audit-frontend-code.mjs](./scripts/audit-frontend-code.mjs)
+  Run: `node <skill_dir>/scripts/audit-frontend-code.mjs <target_dir_or_file>`
