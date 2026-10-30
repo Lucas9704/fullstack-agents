@@ -7,7 +7,7 @@ Centralized repository of **Role-based Plugins** and **Technology Skills** for [
 Each plugin under `plugins/` represents a **Software Engineering Role** and consists of:
 1. **`plugin.json`**: Plugin manifest.
 2. **`rules/AGENTS.md`**: Defines the role's subagent catalog (`builder` with write access and `reviewer` in read-only mode), their framework-agnostic base `SystemPrompt`, and the skill delegation protocol.
-3. **`skills/<tech>/SKILL.md`**: Modular technical knowledge (loaded on-demand via progressive disclosure) for specific frameworks and tools within that role.
+3. **`skills/<tech>/SKILL.md`**: Modular technical knowledge (loaded on-demand via progressive disclosure) divided into **Framework Skills** and **Cross-Cutting Domain Skills**.
 
 ```text
 agent-arsenal/
@@ -19,7 +19,11 @@ agent-arsenal/
     │   └── skills/
     │       ├── react-expert/SKILL.md
     │       ├── angular-expert/SKILL.md
-    │       └── astro-expert/SKILL.md
+    │       ├── astro-expert/SKILL.md
+    │       ├── styling-design-system/SKILL.md
+    │       ├── data-fetching-and-state/SKILL.md
+    │       ├── forms-and-validation/SKILL.md
+    │       └── web-accessibility-and-perf/SKILL.md
     ├── backend-role/                # Role: Backend & Data Engineering
     │   ├── plugin.json
     │   ├── rules/AGENTS.md
