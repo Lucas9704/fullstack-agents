@@ -1,7 +1,7 @@
 ---
 name: playwright-e2e
 description: >-
-  Use this skill when writing, debugging, or maintaining End-to-End (E2E) tests with Playwright. Covers resilient locators, web-first assertions, page object patterns, and eliminating flaky tests.
+  Use this skill when writing, debugging, or maintaining End-to-End (E2E) tests with Playwright. Covers resilient locators, web-first assertions, storageState auth setup, custom fixtures, and eliminating flaky tests.
 ---
 
 # Playwright E2E Testing Skill
@@ -14,5 +14,8 @@ description: >-
 - **Never use `page.waitForTimeout()`**: Use auto-retrying web-first assertions (`await expect(locator).toBeVisible()`, `toHaveURL()`) or explicit network/event waits.
 - Isolate state between tests using a fresh `BrowserContext` per test and seed state via API/fixtures rather than repeating slow UI flows.
 
-## 3. Verification
+## 3. On-Demand Deep-Dive References
+- **Auth `storageState` Setup Projects, Custom `test.extend` Fixtures & CI Sharding**: [references/auth-fixtures-and-ci-sharding.md](./references/auth-fixtures-and-ci-sharding.md)
+
+## 4. Verification
 1. Run the newly created or modified spec with `npx playwright test <file>` and confirm consistent passes.

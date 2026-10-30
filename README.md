@@ -6,8 +6,8 @@ Centralized repository of **Role-based Plugins** and **Technology Skills** for [
 
 Each plugin under `plugins/` represents a **Software Engineering Role** and consists of:
 1. **`plugin.json`**: Plugin manifest.
-2. **`rules/AGENTS.md`**: Defines the role's subagent catalog (`builder` with write access and `reviewer` in read-only mode), their framework-agnostic base `SystemPrompt`, and the skill delegation protocol.
-3. **`skills/<tech>/SKILL.md`**: Modular technical knowledge (loaded on-demand via progressive disclosure) divided into **Framework/Language Skills** and **Cross-Cutting Domain Skills**, with deep-dive `references/` and executable `scripts/`.
+2. **`rules/AGENTS.md`**: Defines the role's subagent catalog (`builder`/`engineer` with write access and `reviewer` in read-only mode), their framework-agnostic base `SystemPrompt`, and the skill delegation protocol.
+3. **`skills/<tech>/SKILL.md`**: Modular technical knowledge (loaded on-demand via progressive disclosure) divided into **Framework/Runner Skills** and **Cross-Cutting Domain Skills**, with deep-dive `references/` and executable `scripts/`.
 
 ```text
 agent-arsenal/
@@ -44,8 +44,13 @@ agent-arsenal/
     │   ├── plugin.json
     │   ├── rules/AGENTS.md
     │   └── skills/
+    │       ├── vitest-expert/
     │       ├── playwright-e2e/
-    │       └── unit-testing-expert/
+    │       ├── unit-testing-expert/
+    │       ├── api-and-integration-testing/
+    │       ├── performance-and-load-testing/
+    │       ├── security-and-fuzz-testing/
+    │       └── test-strategy-and-bug-triage/
     └── devops-infra-role/           # Role: DevOps, Containers & CI/CD
         ├── plugin.json
         ├── rules/AGENTS.md
