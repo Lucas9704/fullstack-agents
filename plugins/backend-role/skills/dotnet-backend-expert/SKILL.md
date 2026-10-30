@@ -22,5 +22,8 @@ Follow these guidelines when developing or auditing **ASP.NET Core (.NET 8/9+)**
 - Use `TypedResults` in Minimal APIs (or `[ApiController]` with explicit `[ProducesResponseType]`) for accurate OpenAPI generation.
 - Configure global `IExceptionHandler` + `AddProblemDetails()` to return standardized RFC 7807 responses, and validate inputs with **FluentValidation** or DataAnnotations at the pipeline boundary.
 
-## 4. Verification
+## 4. On-Demand Deep-Dive References
+- **Minimal API Endpoint Filters, EF Core `ExecuteUpdateAsync`/`SaveChangesInterceptor` & `IDbContextFactory`**: [references/minimal-apis-and-efcore.md](./references/minimal-apis-and-efcore.md)
+
+## 5. Verification
 1. Run `dotnet build --no-restore` and `dotnet test` to verify compilation, nullable reference checks, and tests.

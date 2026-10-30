@@ -23,6 +23,10 @@ Follow these guidelines when developing or auditing **Go** backend services:
 - **Type-Safe SQL**: Prefer `pgx` + `sqlc` (or explicit parameterized queries) with strict connection pool tuning (`MaxConns`, `MinConns`, `MaxConnLifetime`).
 - **Graceful Shutdown**: Use `signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM)` and `srv.Shutdown(shutdownCtx)` to drain in-flight requests cleanly.
 
-## 4. Verification
+## 4. On-Demand Deep-Dive References
+- **HTTP/gRPC Servers (`http.ServeMux` 1.22+, Timeouts) & `pgx/v5` + `sqlc` Transactions**: [references/http-grpc-and-sqlc.md](./references/http-grpc-and-sqlc.md)
+- **Concurrency Patterns (`errgroup`, Channels, Leak Prevention) & `pprof` Profiling**: [references/concurrency-channels-and-profiling.md](./references/concurrency-channels-and-profiling.md)
+
+## 5. Verification
 1. Run `go vet ./...` and `golangci-lint run` (if configured).
 2. Run `go test -race ./...` to verify unit/integration tests and detect data races.

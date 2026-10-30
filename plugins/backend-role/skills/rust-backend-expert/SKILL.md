@@ -20,6 +20,10 @@ Follow these guidelines when developing or auditing **Rust** backend services:
 - Validate incoming payloads using strongly typed `serde::Deserialize` structs (newtypes for domain primitives like `Email`, `UserId`, `NonEmptyString`, or `validator`/`garde` crates).
 - Use `sqlx::query_as!` for compile-time checked SQL queries and always use bounded database connection pools (`PgPoolOptions::new().max_connections(...)`).
 
-## 4. Verification
+## 4. On-Demand Deep-Dive References
+- **Axum Extractors, RFC 7807 `IntoResponse`, Tower Middleware & SQLx Transactions**: [references/axum-tokio-and-sqlx.md](./references/axum-tokio-and-sqlx.md)
+- **Tokio Structured Concurrency (`JoinSet`, `select!`, `CancellationToken`), Lock Contention & Zero-Copy (`Bytes`)**: [references/async-concurrency-and-zero-copy.md](./references/async-concurrency-and-zero-copy.md)
+
+## 5. Verification
 1. Run `cargo check` and `cargo clippy --all-targets -- -D warnings`.
 2. Run `cargo test` to validate unit and integration test suites.

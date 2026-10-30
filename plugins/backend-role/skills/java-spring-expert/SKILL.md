@@ -21,5 +21,8 @@ Follow these guidelines when developing or auditing **Java 21+ / Spring Boot 3+*
 ## 3. Centralized Error Handling
 - Use `@RestControllerAdvice` returning standard **RFC 7807 `ProblemDetail`** objects (`ProblemDetail.forStatusAndDetail(...)`) with appropriate HTTP status codes and correlation metadata.
 
-## 4. Verification
+## 4. On-Demand Deep-Dive References
+- **Spring Security 6+, JPA Record Projections, JDBC Batching & Testcontainers**: [references/spring-boot-3-and-jpa.md](./references/spring-boot-3-and-jpa.md)
+
+## 5. Verification
 1. Run `./mvnw test` or `./gradlew test` (or `mvn test-compile`) to verify compilation and tests.

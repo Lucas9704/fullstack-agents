@@ -1,7 +1,7 @@
 ---
 name: sql-api-architect
 description: >-
-  Use this skill when designing SQL schemas, migrations, complex queries, indexing strategies, or REST/GraphQL API contracts.
+  Use this skill when designing SQL schemas, migrations, complex queries, indexing strategies (B-Tree, GIN, Partial, Covering), keyset pagination, or REST/GraphQL/gRPC API contracts.
 ---
 
 # SQL & API Architect Skill
@@ -14,3 +14,6 @@ description: >-
 ## 2. API Contract Design
 - Keep contracts consistent: use semantic HTTP status codes, uniform error payloads (RFC 7807 Problem Details), and explicit cursor or limit/offset pagination.
 - Ensure idempotency on critical state-mutating operations (`POST`/`PATCH`) where applicable.
+
+## 3. On-Demand Deep-Dive References
+- **PostgreSQL Indexing (`B-Tree`, `GIN`, `Partial`, `INCLUDE`), Keyset Pagination & `FOR UPDATE SKIP LOCKED`**: [references/postgres-optimization-and-indexing.md](./references/postgres-optimization-and-indexing.md)

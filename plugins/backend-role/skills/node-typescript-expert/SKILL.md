@@ -1,7 +1,7 @@
 ---
 name: node-typescript-expert
 description: >-
-  Use this skill when developing or reviewing Node.js / TypeScript backend services (NestJS, Fastify, Express, Hono). Covers strict typing, async error handling, validation with Zod/class-validator, and event-loop performance.
+  Use this skill when developing or reviewing Node.js / TypeScript backend services (NestJS, Fastify, Express, Hono, Prisma, Drizzle). Covers strict typing, async error handling, validation with Zod/class-validator, and event-loop performance.
 ---
 
 # Node.js & TypeScript Backend Expert Skill
@@ -14,6 +14,10 @@ description: >-
 - Avoid floating promises (`no-floating-promises`); handle rejections explicitly and propagate typed domain errors to a centralized error-handling middleware/filter.
 - Implement graceful shutdown on `SIGTERM` / `SIGINT` signals, cleanly closing active HTTP servers and database connection pools.
 
-## 3. Verification
+## 3. On-Demand Deep-Dive References
+- **NestJS, Fastify & Hono Architecture Patterns**: [references/nestjs-and-fastify-patterns.md](./references/nestjs-and-fastify-patterns.md)
+- **Prisma & Drizzle ORM Production Patterns (Transactions, N+1, Pooling)**: [references/prisma-and-drizzle-orms.md](./references/prisma-and-drizzle-orms.md)
+
+## 4. Verification
 1. Run `tsc --noEmit` to verify types.
 2. Execute the service's unit and integration test suite.
