@@ -52,6 +52,8 @@ const ecosystem = {
     tanstackQuery: versionOf('@tanstack/react-query') || versionOf('@tanstack/angular-query-experimental'),
     tanstackTable: versionOf('@tanstack/react-table') || versionOf('@tanstack/angular-table'),
     tanstackVirtual: versionOf('@tanstack/react-virtual') || versionOf('@tanstack/angular-virtual'),
+    supabaseJs: versionOf('@supabase/supabase-js'),
+    supabaseSsr: versionOf('@supabase/ssr'),
     zustand: versionOf('zustand'),
     nanostores: versionOf('nanostores'),
     rxjs: versionOf('rxjs'),
@@ -105,6 +107,8 @@ if (
   ecosystem.stateAndData.tanstackQuery ||
   ecosystem.stateAndData.tanstackTable ||
   ecosystem.stateAndData.tanstackVirtual ||
+  ecosystem.stateAndData.supabaseJs ||
+  ecosystem.stateAndData.supabaseSsr ||
   has('zustand')
 ) {
   recommendedSkills.push('data-fetching-and-state');
@@ -113,6 +117,10 @@ if (
   }
   if (ecosystem.stateAndData.tanstackTable || ecosystem.stateAndData.tanstackVirtual) {
     recommendedReferences.push('data-fetching-and-state/references/tanstack-table-and-virtualization.md');
+  }
+  if (ecosystem.stateAndData.supabaseJs || ecosystem.stateAndData.supabaseSsr || fileExists('supabase/config.toml')) {
+    recommendedSkills.push('supabase-platform');
+    recommendedReferences.push('data-fetching-and-state/references/supabase-ssr-and-client.md');
   }
 }
 

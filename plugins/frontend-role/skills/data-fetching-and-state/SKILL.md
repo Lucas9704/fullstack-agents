@@ -1,7 +1,7 @@
 ---
 name: data-fetching-and-state
 description: >-
-  Use this skill when implementing client-side data fetching, server-state caching (TanStack Query), advanced data tables (TanStack Table / shadcn DataTable), data virtualization (TanStack Virtual), global/local state management (Zustand, Signals), or optimistic updates.
+  Use this skill when implementing client-side data fetching, server-state caching (TanStack Query), Supabase SSR/Client integration (@supabase/ssr, supabase-js), advanced data tables (TanStack Table / shadcn DataTable), data virtualization (TanStack Virtual), global/local state management (Zustand, Signals), or optimistic updates.
 ---
 
 # Data Fetching, Tables & State Management Skill
@@ -29,3 +29,4 @@ Follow these guidelines to separate and manage state, async data, and large data
 ## 4. On-Demand Deep-Dive References
 - **TanStack Query v5 (`queryOptions`, Key Factories, Optimistic Rollbacks, Infinite Queries)**: [references/tanstack-query-v5-patterns.md](./references/tanstack-query-v5-patterns.md)
 - **Advanced Data Tables (`TanStack Table` + `shadcn/ui` DataTable) & Data Virtualization (`TanStack Virtual`)**: [references/tanstack-table-and-virtualization.md](./references/tanstack-table-and-virtualization.md)
+- **Supabase SSR (`@supabase/ssr` `getAll`/`setAll`, `getClaims()`, Typed `Database` Client & TanStack Query)**: [references/supabase-ssr-and-client.md](./references/supabase-ssr-and-client.md) *(For Postgres RLS policies, migrations, and Edge Functions, also activate the `supabase-platform` skill from `backend-role`).*
