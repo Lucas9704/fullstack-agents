@@ -1,7 +1,7 @@
 ---
 name: web-accessibility-and-perf
 description: >-
-  Use this skill when auditing or optimizing web accessibility (WCAG 2.1 AA, ARIA patterns, keyboard navigation, focus management) and Core Web Vitals performance (LCP, INP, CLS, bundle size).
+  Use this skill when auditing or optimizing web accessibility (WCAG 2.1 AA, ARIA patterns, keyboard navigation, focus management) and Core Web Vitals performance (LCP, INP, CLS, list/table virtualization, bundle size).
 ---
 
 # Web Accessibility (a11y) & Performance Skill
@@ -24,4 +24,4 @@ Follow these guidelines to ensure every UI meets **WCAG 2.1 Level AA** accessibi
   - Always declare explicit `width` and `height` (or `aspect-ratio`) on images, videos, embeds, and skeleton loaders.
   - Reserve space for dynamic banners, toasts, or async slots.
 - **INP (Interaction to Next Paint < 200ms)**:
-  - Keep event handlers fast; yield or defer non-urgent state updates (`startTransition`, `requestIdleCallback`, or web workers) and virtualize large lists (`> 100` complex rows).
+  - Keep event handlers fast; yield or defer non-urgent state updates (`startTransition`, `requestIdleCallback`, or web workers) and virtualize large lists/tables (`> 100` complex rows) using `@tanstack/react-virtual` (see [tanstack-table-and-virtualization.md](../data-fetching-and-state/references/tanstack-table-and-virtualization.md)).

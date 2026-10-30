@@ -1,7 +1,7 @@
 ---
 name: styling-design-system
 description: >-
-  Use this skill when styling UI components, building design systems, configuring Tailwind CSS, working with shadcn/ui or CSS variables/tokens, creating component variants with CVA, or implementing responsive layouts and dark mode.
+  Use this skill when styling UI components, building design systems, configuring Tailwind CSS (v3/v4), working with shadcn/ui or CSS variables/tokens, creating component variants with CVA, or implementing responsive layouts and dark mode.
 ---
 
 # Styling & Design System Skill
@@ -21,3 +21,6 @@ Follow these guidelines when authoring styles, UI primitives, and design system 
 - **Mobile-first**: Write base styles for small viewports and layer breakpoint modifiers (`sm:`, `md:`, `lg:`, `xl:`) progressively; use CSS Grid and Flexbox (`gap`) over margin hacks.
 - **Container Queries**: Use `@container` queries for reusable components whose layout depends on their parent container width rather than the global viewport.
 - **Accessible Motion**: Respect `prefers-reduced-motion` (`motion-safe:` / `motion-reduce:`) and animate only compositor-friendly properties (`transform`, `opacity`).
+
+## 4. On-Demand Deep-Dive References
+- **Tailwind CSS v4 (`@theme`), Compound CVA Variants & Polymorphic `asChild` (`Slot`)**: [references/tailwind-v4-and-cva.md](./references/tailwind-v4-and-cva.md)

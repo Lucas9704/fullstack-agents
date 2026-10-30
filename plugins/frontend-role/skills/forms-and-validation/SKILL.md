@@ -1,7 +1,7 @@
 ---
 name: forms-and-validation
 description: >-
-  Use this skill when building forms, multi-step wizards, or input validation flows using React Hook Form, Zod/Valibot schema resolvers, Angular Reactive/Signal Forms, or native form actions.
+  Use this skill when building forms, multi-step wizards, dynamic field arrays, or input validation flows using React Hook Form, Zod/Valibot schema resolvers, Angular Reactive/Signal Forms, or native form actions.
 ---
 
 # Forms & Validation Skill
@@ -23,3 +23,6 @@ Follow these guidelines when building resilient, accessible, and user-friendly f
 - Every input must have a programmatic `<label htmlFor={id}>` (never rely on `placeholder` alone as a label).
 - Wire validation errors to inputs using `aria-invalid={!!error}` and `aria-describedby={`${id}-error`}`, and render error messages with `role="alert"` or `aria-live="polite"`.
 - On failed submission, automatically move focus to the first invalid field (`shouldFocusError: true` in React Hook Form).
+
+## 4. On-Demand Deep-Dive References
+- **React Hook Form + Zod Recipes (`Controller` with `shadcn/ui`, `useFieldArray`, Multi-Step Wizards, File Uploads)**: [references/rhf-zod-recipes.md](./references/rhf-zod-recipes.md)

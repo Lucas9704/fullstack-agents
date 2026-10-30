@@ -1,7 +1,7 @@
 ---
 name: react-expert
 description: >-
-  Use this skill when building, refactoring, or reviewing React applications (including Next.js, Remix, or Vite + React). Covers component design, hooks, state management, TypeScript patterns, and rendering performance.
+  Use this skill when building, refactoring, or reviewing React applications (including Next.js App Router, React 19, Remix, or Vite + React SPAs). Covers component design, hooks, state management, TypeScript patterns, and rendering performance.
 ---
 
 # React Expert Skill
@@ -22,6 +22,12 @@ Follow these guidelines when developing or auditing **React** applications:
 - Define explicit `props` types/interfaces; avoid `any` and prefer discriminated unions for complex state (`idle | loading | success | error`).
 - Always use semantic HTML elements (`<button>`, `<nav>`, `<main>`, `<dialog>`) instead of interactive `<div>` or `<span>` elements.
 
-## 4. Verification
+## 4. On-Demand Deep-Dive References
+Read the relevant reference below only when your task involves that specific ecosystem or architecture:
+- **Next.js App Router (RSC, Server Actions, Streaming, Caching)**: [references/nextjs-app-router.md](./references/nextjs-app-router.md)
+- **React 19 APIs (`useActionState`, `useOptimistic`, `use()`, `ref` prop, Compiler)**: [references/react-19-patterns.md](./references/react-19-patterns.md)
+- **Vite.js & SPA Architecture (Env validation, lazy routes, chunking, proxy)**: [references/vite-spa-architecture.md](./references/vite-spa-architecture.md)
+
+## 5. Verification
 1. Run the project's type checker (`tsc --noEmit` or equivalent).
 2. Run the linter (`npm run lint`) and relevant component/unit tests.

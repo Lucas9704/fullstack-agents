@@ -1,12 +1,12 @@
 ---
 name: data-fetching-and-state
 description: >-
-  Use this skill when implementing client-side data fetching, server-state caching (TanStack Query), global/local state management (Zustand, Signals, Context), optimistic updates, or error/loading boundaries.
+  Use this skill when implementing client-side data fetching, server-state caching (TanStack Query), advanced data tables (TanStack Table / shadcn DataTable), data virtualization (TanStack Virtual), global/local state management (Zustand, Signals), or optimistic updates.
 ---
 
-# Data Fetching & State Management Skill
+# Data Fetching, Tables & State Management Skill
 
-Follow these guidelines to separate and manage state predictably across frontend applications:
+Follow these guidelines to separate and manage state, async data, and large datasets predictably across frontend applications:
 
 ## 1. State Taxonomy (Never Mix State Categories)
 - **Server State** (TanStack Query / SWR / Apollo): Remote asynchronous data that requires caching, deduplication, background refetching, and cache invalidation. Never copy server state into global client stores (`Zustand` / `Redux`).
@@ -25,3 +25,7 @@ Follow these guidelines to separate and manage state predictably across frontend
   2. **Error**: Contextual error message with a clear retry action (`refetch()`).
   3. **Empty**: Helpful empty state explaining why there is no data and offering a primary call-to-action.
   4. **Success**: Render validated data cleanly.
+
+## 4. On-Demand Deep-Dive References
+- **TanStack Query v5 (`queryOptions`, Key Factories, Optimistic Rollbacks, Infinite Queries)**: [references/tanstack-query-v5-patterns.md](./references/tanstack-query-v5-patterns.md)
+- **Advanced Data Tables (`TanStack Table` + `shadcn/ui` DataTable) & Data Virtualization (`TanStack Virtual`)**: [references/tanstack-table-and-virtualization.md](./references/tanstack-table-and-virtualization.md)
