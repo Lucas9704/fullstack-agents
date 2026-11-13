@@ -72,6 +72,12 @@ agent-arsenal/
 
 ## Global Installation / Linking
 
+Clone the repository to `~/agent-arsenal`:
+
+```bash
+git clone git@github.com:Lucas9704/fullstack-agents.git ~/agent-arsenal
+```
+
 To enable this arsenal across all projects on your machine, register the `plugins` directory in `~/.gemini/config/plugins.json`:
 
 ```json
@@ -86,10 +92,10 @@ To enable this arsenal across all projects on your machine, register the `plugin
 
 ## Claude Code
 
-The same skills are shared with Claude Code. Each role also ships a `.claude-plugin/plugin.json` manifest and `agents/*.md` subagents, and the repo root is a plugin marketplace (`.claude-plugin/marketplace.json`).
+The same skills are shared with Claude Code. Each role also ships a `.claude-plugin/plugin.json` manifest and `agents/*.md` subagents, and the repo root is a plugin marketplace (`.claude-plugin/marketplace.json`). Install it straight from GitHub, no clone needed:
 
 ```text
-/plugin marketplace add ~/agent-arsenal
+/plugin marketplace add Lucas9704/fullstack-agents
 /plugin install frontend-role@agent-arsenal
 /plugin install qa-testing-role@agent-arsenal
 /plugin install backend-role@agent-arsenal
@@ -109,7 +115,9 @@ Each role adds its skills (namespaced as `<role>:<skill>`) and two subagents:
 
 Live browser verification in `frontend-role` uses `qa-testing-role:playwright-cli-browser`, so install both together.
 
-To try a role for one session without installing it:
+The marketplace is named `agent-arsenal` (from `marketplace.json`), so plugins are installed as `<role>@agent-arsenal` even though the repository is `fullstack-agents`. Pull new versions with `/plugin marketplace update agent-arsenal`.
+
+To try a role from a local clone for one session without installing it (useful while editing skills or agents):
 
 ```bash
 claude --plugin-dir ~/agent-arsenal/plugins/frontend-role
@@ -118,7 +126,7 @@ claude --plugin-dir ~/agent-arsenal/plugins/frontend-role
 To enable only specific roles in one repository (the Claude Code equivalent of `include_only`), run these from the project root. They write `.claude/settings.json`, which you can commit for the team:
 
 ```bash
-claude plugin marketplace add ~/agent-arsenal --scope project
+claude plugin marketplace add Lucas9704/fullstack-agents --scope project
 claude plugin install frontend-role@agent-arsenal --scope project
 ```
 
