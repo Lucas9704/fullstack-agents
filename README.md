@@ -88,14 +88,26 @@ To enable this arsenal across all projects on your machine, register the `plugin
 
 The same skills are shared with Claude Code. Each role also ships a `.claude-plugin/plugin.json` manifest and `agents/*.md` subagents, and the repo root is a plugin marketplace (`.claude-plugin/marketplace.json`).
 
-> Currently available for Claude Code: `frontend-role` (pilot).
-
 ```text
 /plugin marketplace add ~/agent-arsenal
 /plugin install frontend-role@agent-arsenal
+/plugin install qa-testing-role@agent-arsenal
+/plugin install backend-role@agent-arsenal
+/plugin install devops-infra-role@agent-arsenal
+/plugin install docs-architecture-role@agent-arsenal
 ```
 
-This gives you the `frontend-role:frontend-builder` and `frontend-role:frontend-reviewer` subagents and the `frontend-role:*` skills. Live browser verification uses `qa-testing-role:playwright-cli-browser`, so install `qa-testing-role` as well when it becomes available.
+Each role adds its skills (namespaced as `<role>:<skill>`) and two subagents:
+
+| Plugin | Subagents |
+|---|---|
+| `frontend-role` | `frontend-builder`, `frontend-reviewer` (read-only) |
+| `qa-testing-role` | `qa-engineer`, `qa-reviewer` (read-only) |
+| `backend-role` | `backend-builder`, `backend-reviewer` (read-only) |
+| `devops-infra-role` | `devops-engineer`, `devops-reviewer` (read-only) |
+| `docs-architecture-role` | `docs-architect`, `docs-reviewer` (read-only) |
+
+Live browser verification in `frontend-role` uses `qa-testing-role:playwright-cli-browser`, so install both together.
 
 To try a role for one session without installing it:
 
