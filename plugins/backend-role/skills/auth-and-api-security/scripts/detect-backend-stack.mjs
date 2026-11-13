@@ -31,6 +31,24 @@ if (fileExists('package.json')) {
     const pkg = JSON.parse(readText('package.json'));
     const deps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
     const has = (name) => Boolean(deps[name]);
+    const SQL_DRIVERS_AND_QUERY_BUILDERS = [
+      'pg',
+      'postgres',
+      'mysql',
+      'mysql2',
+      'mariadb',
+      'better-sqlite3',
+      'sqlite3',
+      'mssql',
+      'tedious',
+      'oracledb',
+      'knex',
+      'kysely',
+      'typeorm',
+      'sequelize',
+      '@mikro-orm/core',
+    ];
+    const sqlLibs = SQL_DRIVERS_AND_QUERY_BUILDERS.filter(has);
 
     if (
       has('@nestjs/core') ||
@@ -38,7 +56,8 @@ if (fileExists('package.json')) {
       has('express') ||
       has('hono') ||
       has('@prisma/client') ||
-      has('drizzle-orm')
+      has('drizzle-orm') ||
+      sqlLibs.length > 0
     ) {
       detectedRuntimes.push('node-typescript');
       recommendedSkills.push('node-typescript-expert');
@@ -56,6 +75,12 @@ if (fileExists('package.json')) {
     if (has('drizzle-orm')) {
       dataLayer.push('drizzle');
       recommendedReferences.push('node-typescript-expert/references/prisma-and-drizzle-orms.md');
+    }
+    if (sqlLibs.length > 0) {
+      dataLayer.push(...sqlLibs);
+    }
+    if (sqlLibs.length > 0 || has('@prisma/client') || has('prisma') || has('drizzle-orm')) {
+      recommendedSkills.push('sql-api-architect');
     }
     if (has('bullmq') || has('ioredis') || has('redis') || has('amqplib') || has('kafkajs')) {
       messagingAndCache.push('redis/queues');
