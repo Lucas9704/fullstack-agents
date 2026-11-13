@@ -1,0 +1,18 @@
+{
+  "name": "agent-arsenal",
+  "owner": {
+    "name": "luks9"
+  },
+  "metadata": {
+    "description": "Role-based plugins (subagents + technology skills) for software engineering teams."
+  },
+  "plugins": [
+    {
+      "name": "frontend-role",
+      "source": "./plugins/frontend-role",
+      "description": "Frontend Engineering & UI/UX role: builder and reviewer subagents plus React, Angular, Astro, styling, state, forms and a11y/perf skills.",
+      "version": "0.1.0",
+      "category": "development"
+    }
+  ]
+}

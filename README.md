@@ -84,6 +84,34 @@ To enable this arsenal across all projects on your machine, register the `plugin
 }
 ```
 
+## Claude Code
+
+The same skills are shared with Claude Code. Each role also ships a `.claude-plugin/plugin.json` manifest and `agents/*.md` subagents, and the repo root is a plugin marketplace (`.claude-plugin/marketplace.json`).
+
+> Currently available for Claude Code: `frontend-role` (pilot).
+
+```text
+/plugin marketplace add ~/agent-arsenal
+/plugin install frontend-role@agent-arsenal
+```
+
+This gives you the `frontend-role:frontend-builder` and `frontend-role:frontend-reviewer` subagents and the `frontend-role:*` skills. Live browser verification uses `qa-testing-role:playwright-cli-browser`, so install `qa-testing-role` as well when it becomes available.
+
+To try a role for one session without installing it:
+
+```bash
+claude --plugin-dir ~/agent-arsenal/plugins/frontend-role
+```
+
+To enable only specific roles in one repository (the Claude Code equivalent of `include_only`), run these from the project root. They write `.claude/settings.json`, which you can commit for the team:
+
+```bash
+claude plugin marketplace add ~/agent-arsenal --scope project
+claude plugin install frontend-role@agent-arsenal --scope project
+```
+
+Validate manifests and agents with `claude plugin validate .` (marketplace) and `claude plugin validate plugins/<role>` (plugin).
+
 ## Project-Specific Usage (Team / VCS)
 
 To enable only specific roles in a single repository, create `.agents/plugins.json` in that project:
