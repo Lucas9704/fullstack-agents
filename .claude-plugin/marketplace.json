@@ -11,7 +11,7 @@
       "name": "fullstack-agents",
       "source": "./",
       "description": "Full-stack software engineering roles in one plugin: builder and read-only reviewer subagents for frontend, QA, backend, DevOps and docs/architecture, plus 35 technology skills with references and audit scripts.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "category": "development"
     }
   ]

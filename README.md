@@ -145,3 +145,7 @@ To enable only specific roles in a single repository, create `.agents/plugins.js
   ]
 }
 ```
+
+## License
+
+[MIT](./LICENSE) © 2026 Lucas Canteros
