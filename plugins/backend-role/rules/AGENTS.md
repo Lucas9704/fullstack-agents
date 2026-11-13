@@ -30,7 +30,7 @@ Both the primary agent and backend subagents can execute these zero-dependency N
    Inspects `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `pom.xml`/`build.gradle`, `*.csproj`, and `supabase/` to output `skillsToActivate` and `referencesToRead`.
 2. **Static Security, Concurrency & Supabase RLS Auditor**:
    `node ~/agent-arsenal/plugins/backend-role/skills/auth-and-api-security/scripts/audit-backend-security-and-sql.mjs <target-dir-or-file>`
-   Scans `.ts`, `.js`, `.py`, `.go`, `.rs`, `.java`, `.cs`, and `.sql` files for Supabase RLS violations (`FOR ALL`, unwrapped `auth.uid()`, server `getSession()`), public secret exposure, Rust `.unwrap()`, C# sync-over-async, and Node event-loop blocking calls.
+   Scans `.ts`, `.js`, `.py`, `.go`, `.rs`, `.java`, `.cs`, and `.sql` files for SQL injection via string interpolation/concatenation, credentials and headers written to logs, Supabase RLS violations (`FOR ALL`, unwrapped `auth.uid()`, server `getSession()`), public secret exposure, Rust `.unwrap()`, C# sync-over-async, and Node event-loop blocking calls.
 
 ## 3. Skill Selection Matrix (Language/Runtime + Cross-Cutting)
 

@@ -4,7 +4,8 @@
  * Usage: node audit-backend-security-and-sql.mjs [target-dir-or-file]
  *
  * Scans backend source files (.ts, .js, .py, .go, .rs, .java, .cs) and SQL migrations (.sql)
- * for common OWASP API vulnerabilities, Supabase RLS pitfalls, and concurrency anti-patterns.
+ * for common OWASP API vulnerabilities, Supabase RLS pitfalls, and concurrency anti-patterns,
+ * including SQL built by string interpolation/concatenation and credentials written to logs.
  */
 
 import fs from 'node:fs';
@@ -97,6 +98,100 @@ const LINE_RULES = [
   },
 ];
 
+// A string that looks like a real SQL statement, not UI copy such as "Select a {kind} from the menu".
+// SELECT ... FROM only counts when SELECT is uppercase, the column list has *, a comma or a call,
+// or the FROM clause is followed by WHERE/JOIN/ORDER BY/GROUP BY/LIMIT.
+const SQL_STATEMENT_RES = [
+  /\bSELECT\b[\s\S]{0,400}?\bFROM\b/,
+  /\bselect\b[^;]{0,400}?[*,(][^;]{0,400}?\bfrom\b/i,
+  /\bselect\b[\s\S]{0,400}?\bfrom\s+[\w."`\[\]]+[\s\S]{0,200}?\b(where|join|order\s+by|group\s+by|limit)\b/i,
+  /\b(insert\s+into|delete\s+from|merge\s+into)\b/i,
+  /\bupdate\s+[\w."`\[\]]+\s+set\b/i,
+];
+const looksLikeSql = (text) => SQL_STATEMENT_RES.some((re) => re.test(text));
+
+// APIs that turn an interpolated string into bind parameters, so interpolation there is safe.
+const SAFE_INTERPOLATION_CALL_RE =
+  /\b(FromSql|FromSqlInterpolated|ExecuteSql|ExecuteSqlInterpolated|ExecuteSqlInterpolatedAsync|ExecuteSqlAsync|SqlQuery(?:<[^>]*>)?)\s*\(\s*$/;
+
+// Per language: string literals whose value is built from runtime data (interpolation,
+// concatenation or formatting). Each regex must expose the literal text as group "sql".
+const SQL_BUILDERS = {
+  '.ts': [
+    // Untagged template literal with ${...}. Tagged templates (sql`...`, Prisma.sql`...`) are
+    // parameterized by the driver, so an identifier right before the backtick is excluded.
+    { re: /(?<![\w$.)\]])`(?<sql>(?:\\[\s\S]|[^`\\])*\$\{(?:\\[\s\S]|[^`\\])*)`/g, how: 'template literal interpolation' },
+    { re: /(["'])(?<sql>(?:\\.|(?!\1)[^\\\n])*)\1\s*\+\s*[\w$(]/g, how: 'string concatenation' },
+  ],
+  '.py': [
+    { re: /\b[fF][rR]?(["'])(?<sql>(?:\\.|(?!\1)[^\\\n])*\{[^}]+\}(?:\\.|(?!\1)[^\\\n])*)\1/g, how: 'f-string interpolation' },
+    { re: /(["'])(?<sql>(?:\\.|(?!\1)[^\\\n])*)\1\s*(?:%\s*[\w(]|\.format\s*\(|\+\s*\w)/g, how: '% / .format() / + formatting' },
+  ],
+  '.go': [
+    { re: /\bfmt\.Sprintf\(\s*(["`])(?<sql>(?:\\.|(?!\1)[^\\])*)\1/g, how: 'fmt.Sprintf formatting' },
+    { re: /(["`])(?<sql>(?:\\.|(?!\1)[^\\])*)\1\s*\+\s*\w/g, how: 'string concatenation' },
+  ],
+  '.rs': [{ re: /\bformat!\(\s*"(?<sql>(?:\\.|[^"\\])*\{[^}]*\}(?:\\.|[^"\\])*)"/g, how: 'format! interpolation' }],
+  '.java': [{ re: /"(?<sql>(?:\\.|[^"\\\n])*)"\s*\+\s*\w/g, how: 'string concatenation' }],
+  '.cs': [
+    { re: /\$@?"(?<sql>(?:\\.|[^"\\])*\{[^}]+\}(?:\\.|[^"\\])*)"/g, how: 'interpolated string' },
+    { re: /"(?<sql>(?:\\.|[^"\\\n])*)"\s*\+\s*\w/g, how: 'string concatenation' },
+  ],
+};
+SQL_BUILDERS['.js'] = SQL_BUILDERS['.ts'];
+
+const lineOf = (content, index) => content.slice(0, index).split('\n').length;
+
+function findSqlInjection(content, ext) {
+  const results = [];
+  for (const { re, how } of SQL_BUILDERS[ext] || []) {
+    for (const m of content.matchAll(re)) {
+      if (!looksLikeSql(m.groups.sql)) continue;
+      if (SAFE_INTERPOLATION_CALL_RE.test(content.slice(Math.max(0, m.index - 80), m.index))) continue;
+      results.push({
+        line: lineOf(content, m.index),
+        ruleId: 'SQL_INJECTION_STRING_BUILDING',
+        severity: 'HIGH',
+        description: `SQL statement built with ${how}. Pass values as bind parameters ($1, ?, :name, @p) or use a tagged/parameterized query API instead.`,
+      });
+    }
+  }
+  return results;
+}
+
+// Logging calls across the supported languages.
+const LOG_CALL_RE =
+  /(\bconsole\.(log|info|warn|error|debug|trace)|\b(logger|log|logging|slog|_logger|Log)\.\w+|\bprint(ln)?|\bfmt\.Print\w*|\b(println|eprintln|info|warn|error|debug|trace)!|\bSystem\.(out|err)\.print\w*|\bConsole\.Write\w*)\s*\(/;
+// Names that carry credentials or session material. `headers` is included because logging a
+// whole headers object leaks the Authorization and Cookie headers.
+const SENSITIVE_NAME_RE =
+  /\b(authorization|auth_?token|access_?token|refresh_?token|id_?token|token|password|passwd|pwd|secret|client_?secret|api_?key|apikey|cookies?|set-cookie|bearer|headers|credentials?|private_?key|ssn|credit_?card|card_?number|cvv)\b/i;
+
+// Replace every string literal with only the expressions interpolated into it, so that a message
+// like "invalid token" is ignored while `${req.headers.authorization}` or {password} is kept.
+function codeOutsideStrings(line) {
+  return line.replace(/(`|"|')((?:\\.|(?!\1)[^\\])*)\1/g, (_, _q, body) =>
+    [...body.matchAll(/\$?\{([^}]*)\}/g)].map((x) => ` ${x[1]} `).join('')
+  );
+}
+
+function findSensitiveLogging(lines) {
+  const results = [];
+  lines.forEach((line, index) => {
+    if (!LOG_CALL_RE.test(line)) return;
+    const code = codeOutsideStrings(line.slice(line.search(LOG_CALL_RE)));
+    const hit = code.match(SENSITIVE_NAME_RE);
+    if (!hit) return;
+    results.push({
+      line: index + 1,
+      ruleId: 'SENSITIVE_DATA_IN_LOGS',
+      severity: 'HIGH',
+      description: `Logging call includes "${hit[0]}". Credentials, tokens, headers and personal data must never reach logs; log a redacted value or an identifier instead.`,
+    });
+  });
+  return results;
+}
+
 function collectFiles(entryPath, results = []) {
   if (!fs.existsSync(entryPath)) return results;
   const stat = fs.statSync(entryPath);
@@ -138,6 +233,16 @@ for (const file of files) {
       }
     }
   });
+
+  if (ext !== '.sql') {
+    for (const finding of [...findSqlInjection(content, ext), ...findSensitiveLogging(lines)]) {
+      findings.push({
+        file: path.relative(process.cwd(), file) || file,
+        ...finding,
+        snippet: (lines[finding.line - 1] || '').trim().slice(0, 140),
+      });
+    }
+  }
 }
 
 const summary = {
