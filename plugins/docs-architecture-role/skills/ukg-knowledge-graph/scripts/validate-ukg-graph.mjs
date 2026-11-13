@@ -94,7 +94,10 @@ for (const file of files) {
       severity: 'HIGH',
       description: 'Markdown file is missing a YAML frontmatter block (---).',
     });
-    nodesByFile.set(file, { file, relFile, id: path.basename(file, '.md'), meta: {}, body: content });
+    // Keep the node in the graph so its links are still checked and links to it still resolve.
+    const fallbackNode = { file, relFile, id: path.basename(file, '.md'), meta: {}, body: content, content };
+    nodesByFile.set(file, fallbackNode);
+    if (!nodesById.has(fallbackNode.id)) nodesById.set(fallbackNode.id, fallbackNode);
     continue;
   }
 
