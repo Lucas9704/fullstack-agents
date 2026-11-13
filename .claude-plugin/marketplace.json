@@ -8,38 +8,10 @@
   },
   "plugins": [
     {
-      "name": "frontend-role",
-      "source": "./plugins/frontend-role",
-      "description": "Frontend Engineering & UI/UX role: builder and reviewer subagents plus React, Angular, Astro, styling, state, forms and a11y/perf skills.",
-      "version": "0.1.0",
-      "category": "development"
-    },
-    {
-      "name": "qa-testing-role",
-      "source": "./plugins/qa-testing-role",
-      "description": "QA, Test Automation & Quality role: qa-engineer and qa-reviewer subagents plus Vitest, Playwright E2E, playwright-cli, unit, API/integration, load, security/fuzz and test-strategy skills.",
-      "version": "0.1.0",
-      "category": "development"
-    },
-    {
-      "name": "backend-role",
-      "source": "./plugins/backend-role",
-      "description": "Backend, APIs & Distributed Systems role: backend-builder and backend-reviewer subagents plus Node/TS, Python, Go, Java, .NET, Rust, SQL, Supabase, auth, queues, observability and architecture skills.",
-      "version": "0.1.0",
-      "category": "development"
-    },
-    {
-      "name": "devops-infra-role",
-      "source": "./plugins/devops-infra-role",
-      "description": "DevOps, Cloud & Platform Engineering role: devops-engineer and devops-reviewer subagents plus Docker, Supabase self-hosted, CI/CD, Terraform, Azure CLI and reverse proxy/Linux skills.",
-      "version": "0.1.0",
-      "category": "development"
-    },
-    {
-      "name": "docs-architecture-role",
-      "source": "./plugins/docs-architecture-role",
-      "description": "Documentation & Software Architecture role: docs-architect and docs-reviewer subagents plus UKG knowledge graph and ADR/Mermaid diagram skills.",
-      "version": "0.1.0",
+      "name": "fullstack-agents",
+      "source": "./",
+      "description": "Full-stack software engineering roles in one plugin: builder and read-only reviewer subagents for frontend, QA, backend, DevOps and docs/architecture, plus 35 technology skills with references and audit scripts.",
+      "version": "0.2.0",
       "category": "development"
     }
   ]

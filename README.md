@@ -92,45 +92,44 @@ To enable this arsenal across all projects on your machine, register the `plugin
 
 ## Claude Code
 
-The same skills are shared with Claude Code. Each role also ships a `.claude-plugin/plugin.json` manifest and `agents/*.md` subagents, and the repo root is a plugin marketplace (`.claude-plugin/marketplace.json`). Install it straight from GitHub, no clone needed:
+The whole repository is a single Claude Code plugin, `fullstack-agents`, that bundles every role: 10 subagents and 35 skills. It reuses the same `skills/` folders as Antigravity, and its manifest (`.claude-plugin/plugin.json`) points at each role's `skills/` and `agents/*.md`, so nothing is duplicated. Install it straight from GitHub, no clone needed:
+
+```text
+/plugin install fullstack-agents --marketplace Lucas9704/fullstack-agents
+```
+
+Or in two steps:
 
 ```text
 /plugin marketplace add Lucas9704/fullstack-agents
-/plugin install frontend-role@agent-arsenal
-/plugin install qa-testing-role@agent-arsenal
-/plugin install backend-role@agent-arsenal
-/plugin install devops-infra-role@agent-arsenal
-/plugin install docs-architecture-role@agent-arsenal
+/plugin install fullstack-agents@agent-arsenal
 ```
 
-Each role adds its skills (namespaced as `<role>:<skill>`) and two subagents:
+Skills and subagents are namespaced as `fullstack-agents:<name>` (for example `fullstack-agents:react-expert`):
 
-| Plugin | Subagents |
+| Role | Subagents |
 |---|---|
-| `frontend-role` | `frontend-builder`, `frontend-reviewer` (read-only) |
-| `qa-testing-role` | `qa-engineer`, `qa-reviewer` (read-only) |
-| `backend-role` | `backend-builder`, `backend-reviewer` (read-only) |
-| `devops-infra-role` | `devops-engineer`, `devops-reviewer` (read-only) |
-| `docs-architecture-role` | `docs-architect`, `docs-reviewer` (read-only) |
+| Frontend | `frontend-builder`, `frontend-reviewer` (read-only) |
+| QA & Testing | `qa-engineer`, `qa-reviewer` (read-only) |
+| Backend | `backend-builder`, `backend-reviewer` (read-only) |
+| DevOps & Infra | `devops-engineer`, `devops-reviewer` (read-only) |
+| Docs & Architecture | `docs-architect`, `docs-reviewer` (read-only) |
 
-Live browser verification in `frontend-role` uses `qa-testing-role:playwright-cli-browser`, so install both together.
+The marketplace is named `agent-arsenal` (from `marketplace.json`), so the plugin is installed as `fullstack-agents@agent-arsenal`. Pull new versions with `/plugin marketplace update agent-arsenal`; bump `version` in both `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` when releasing changes, because installed plugins are cached per version.
 
-The marketplace is named `agent-arsenal` (from `marketplace.json`), so plugins are installed as `<role>@agent-arsenal` even though the repository is `fullstack-agents`. Pull new versions with `/plugin marketplace update agent-arsenal`.
-
-To try a role from a local clone for one session without installing it (useful while editing skills or agents):
+To share it with a team, install it with `--scope project` from the project root and commit the resulting `.claude/settings.json`:
 
 ```bash
-claude --plugin-dir ~/agent-arsenal/plugins/frontend-role
+claude plugin install fullstack-agents --marketplace Lucas9704/fullstack-agents --scope project
 ```
 
-To enable only specific roles in one repository (the Claude Code equivalent of `include_only`), run these from the project root. They write `.claude/settings.json`, which you can commit for the team:
+To try a local clone for one session without installing it (useful while editing skills or agents):
 
 ```bash
-claude plugin marketplace add Lucas9704/fullstack-agents --scope project
-claude plugin install frontend-role@agent-arsenal --scope project
+claude --plugin-dir ~/agent-arsenal
 ```
 
-Validate manifests and agents with `claude plugin validate .` (marketplace) and `claude plugin validate plugins/<role>` (plugin).
+Validate the plugin and marketplace with `claude plugin validate .`.
 
 ## Project-Specific Usage (Team / VCS)
 

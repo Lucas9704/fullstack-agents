@@ -1,0 +1,38 @@
+{
+  "name": "fullstack-agents",
+  "version": "0.2.0",
+  "description": "Full-stack software engineering roles in one plugin: builder and read-only reviewer subagents for frontend, QA, backend, DevOps and docs/architecture, plus 35 technology skills with references and audit scripts.",
+  "author": {
+    "name": "luks9"
+  },
+  "repository": "https://github.com/Lucas9704/fullstack-agents",
+  "keywords": [
+    "frontend",
+    "backend",
+    "qa",
+    "testing",
+    "devops",
+    "documentation",
+    "architecture",
+    "subagents"
+  ],
+  "skills": [
+    "./plugins/frontend-role/skills/",
+    "./plugins/qa-testing-role/skills/",
+    "./plugins/backend-role/skills/",
+    "./plugins/devops-infra-role/skills/",
+    "./plugins/docs-architecture-role/skills/"
+  ],
+  "agents": [
+    "./plugins/backend-role/agents/backend-builder.md",
+    "./plugins/backend-role/agents/backend-reviewer.md",
+    "./plugins/devops-infra-role/agents/devops-engineer.md",
+    "./plugins/devops-infra-role/agents/devops-reviewer.md",
+    "./plugins/docs-architecture-role/agents/docs-architect.md",
+    "./plugins/docs-architecture-role/agents/docs-reviewer.md",
+    "./plugins/frontend-role/agents/frontend-builder.md",
+    "./plugins/frontend-role/agents/frontend-reviewer.md",
+    "./plugins/qa-testing-role/agents/qa-engineer.md",
+    "./plugins/qa-testing-role/agents/qa-reviewer.md"
+  ]
+}

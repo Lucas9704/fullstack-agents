@@ -1,9 +1,0 @@
-{
-  "name": "frontend-role",
-  "version": "0.1.0",
-  "description": "Frontend Engineering & UI/UX role: builder and reviewer subagents plus React, Angular, Astro, styling, state, forms and a11y/perf skills.",
-  "author": {
-    "name": "luks9"
-  },
-  "keywords": ["frontend", "react", "angular", "astro", "accessibility", "tailwind"]
-}
